@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController//declare this class as rest controller able to catch http request
-@RequestMapping("app/statistics")//controller root path
+@RequestMapping("/app_statistics")//controller root path
 class AppStatisticsController(private val appStatisticsService: AppStatisticsService){//injects AppStatisticsService by constructor
 
 
@@ -21,8 +21,13 @@ class AppStatisticsController(private val appStatisticsService: AppStatisticsSer
     @DeleteMapping("{id}")  fun deleteById(@PathVariable id: String): Optional<AppStatistic>  = appStatisticsService.deleteById(id)
 
 
-    @GetMapping fun getStats():List<AppStatisticsDTO> = appStatisticsService.getStats(LocalDate.parse("1395-01-01"),
-            LocalDate.parse("1399-01-01"), 2)
+    @GetMapping("/report")
+    fun getStats(@RequestBody request: Request):List<AppStatisticsDTO>
+            = appStatisticsService.getStats(LocalDate.parse(request.startDate),
+            LocalDate.parse(request.endDate), request.type)
 
 }
+
+
+data class Request(val type: Int, val startDate: String, val endDate: String)
 

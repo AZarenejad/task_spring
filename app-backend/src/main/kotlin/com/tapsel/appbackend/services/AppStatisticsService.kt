@@ -40,9 +40,10 @@ class AppStatisticsService(val appStatisticsDAO: AppStatisticsDAO):BasicCrud<Str
         var appsDTO : ArrayList<AppStatisticsDTO> = ArrayList()
         for(app in apps){
             val weekNum = app.reportTime.get(WeekFields.of(DayOfWeek.SATURDAY, 1).weekOfWeekBasedYear())
-            appsDTO.add(AppStatisticsDTO(weekNum,app.reportTime.year,app.videoRequests + app.webViewRequests,
-            app.videoClicks + app.webViewClicks, app.videoInstalls + app.webViewInstalls))
+            appsDTO.add(AppStatisticsDTO(weekNum,app.reportTime.year,app.countRequest(),
+            app.countClicks(), app.countInstalls()))
         }
+        print("hello") // to check cache with redis working fine!
         return appsDTO.sortedWith(compareBy(AppStatisticsDTO::year, AppStatisticsDTO::weekNum))
     }
 
