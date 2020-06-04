@@ -35,7 +35,6 @@ class AppStatisticsService(val appStatisticsDAO: AppStatisticsDAO):BasicCrud<Str
 
     @Cacheable(value = ["appsStatistics"])
     fun getStats(startDate: LocalDate, endDate:LocalDate, type:Int):List<AppStatisticsDTO> {
-        print("heloo")
        val apps = appStatisticsDAO.findByTypeAndReportTimeBetween(type, startDate, endDate)
         var appsDTO : ArrayList<AppStatisticsDTO> = ArrayList()
         for(app in apps){
