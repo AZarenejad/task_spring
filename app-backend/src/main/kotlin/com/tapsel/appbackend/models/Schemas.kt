@@ -16,6 +16,6 @@ import java.time.LocalDate
         val videoInstalls:Int,
         val webViewInstalls:Int){
     fun countRequest() : Int = videoRequests + webViewRequests
-    fun  countClicks(): Int = videoClicks + webViewClicks
+    fun countClicks(): Int = videoClicks + webViewClicks
     fun countInstalls():Int = videoInstalls + webViewInstalls
 }
